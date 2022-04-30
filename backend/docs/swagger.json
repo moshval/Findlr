@@ -1,0 +1,139 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Words API Documentation",
+        "contact": {},
+        "version": "1.0.0"
+    },
+    "host": "localhost:8080",
+    "paths": {
+        "/words": {
+            "get": {
+                "description": "Get Words Based on Query",
+                "tags": [
+                    "Words"
+                ],
+                "summary": "Get Words Based on Query",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Type of words",
+                        "name": "type",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Word",
+                        "name": "word",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Exclude",
+                        "name": "exc",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/main.Words"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/words/add": {
+            "post": {
+                "description": "Add new Words based on parameters",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Words"
+                ],
+                "summary": "Add new Words based on parameters",
+                "parameters": [
+                    {
+                        "description": "Added Word",
+                        "name": "PostRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.PostRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/words/delete": {
+            "post": {
+                "description": "Delete Words based on parameters",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Words"
+                ],
+                "summary": "Delete Words based on parameters",
+                "parameters": [
+                    {
+                        "description": "Deleted Word",
+                        "name": "PostRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.PostRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "main.PostRequest": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "integer"
+                },
+                "word": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.Words": {
+            "type": "object",
+            "properties": {
+                "words": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,90 @@
+definitions:
+  main.PostRequest:
+    properties:
+      type:
+        type: integer
+      word:
+        type: string
+    type: object
+  main.Words:
+    properties:
+      words:
+        items:
+          type: string
+        type: array
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  title: Words API Documentation
+  version: 1.0.0
+paths:
+  /words:
+    get:
+      description: Get Words Based on Query
+      parameters:
+      - description: Type of words
+        in: query
+        name: type
+        required: true
+        type: integer
+      - description: Word
+        in: query
+        name: word
+        required: true
+        type: string
+      - description: Exclude
+        in: query
+        name: exc
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.Words'
+            type: array
+      summary: Get Words Based on Query
+      tags:
+      - Words
+  /words/add:
+    post:
+      consumes:
+      - application/json
+      description: Add new Words based on parameters
+      parameters:
+      - description: Added Word
+        in: body
+        name: PostRequest
+        required: true
+        schema:
+          $ref: '#/definitions/main.PostRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Add new Words based on parameters
+      tags:
+      - Words
+  /words/delete:
+    post:
+      consumes:
+      - application/json
+      description: Delete Words based on parameters
+      parameters:
+      - description: Deleted Word
+        in: body
+        name: PostRequest
+        required: true
+        schema:
+          $ref: '#/definitions/main.PostRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Delete Words based on parameters
+      tags:
+      - Words
+swagger: "2.0"
