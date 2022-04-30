@@ -5,7 +5,7 @@
         "contact": {},
         "version": "1.0.0"
     },
-    "host": "localhost:8080",
+    "host": ":8080",
     "paths": {
         "/words": {
             "get": {
@@ -17,7 +17,7 @@
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Type of words",
+                        "description": "Language (0 : EN, 1 : ID)",
                         "name": "type",
                         "in": "query",
                         "required": true
@@ -31,7 +31,7 @@
                     },
                     {
                         "type": "string",
-                        "description": "Exclude",
+                        "description": "Excluded Letters",
                         "name": "exc",
                         "in": "query"
                     }

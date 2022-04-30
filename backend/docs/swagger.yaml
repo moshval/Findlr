@@ -13,7 +13,7 @@ definitions:
           type: string
         type: array
     type: object
-host: localhost:8080
+host: :8080
 info:
   contact: {}
   title: Words API Documentation
@@ -23,7 +23,7 @@ paths:
     get:
       description: Get Words Based on Query
       parameters:
-      - description: Type of words
+      - description: 'Language (0 : EN, 1 : ID)'
         in: query
         name: type
         required: true
@@ -33,7 +33,7 @@ paths:
         name: word
         required: true
         type: string
-      - description: Exclude
+      - description: Excluded Letters
         in: query
         name: exc
         type: string

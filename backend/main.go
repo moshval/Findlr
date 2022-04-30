@@ -120,7 +120,7 @@ func getPort() string {
 	if port == "" {
 		port = "8080"
 	}
-	return "localhost:" + port
+	return ":" + port
 }
 
 func filterWords(tipe int, word string, exc string) []string {
@@ -129,7 +129,7 @@ func filterWords(tipe int, word string, exc string) []string {
 	var filtered []string
 	for _, v := range arr {
 		for i := range word {
-			if v[i] != word[i] {
+			if v[i] != word[i] && string(word[i]) != "_" {
 				break
 			}
 			if i == len(word)-1 {
@@ -156,7 +156,7 @@ func filterWords(tipe int, word string, exc string) []string {
 // @Description Get Words Based on Query
 // @Param type query int true "Language (0 : EN, 1 : ID)"
 // @Param word query string true "Word"
-// @Param exc query string false "Exclude"
+// @Param exc query string false "Excluded Letters"
 // @Tags Words
 // @Success 200 {array} Words
 // @Router /words [get]
@@ -247,7 +247,7 @@ func addWord(c *gin.Context) {
 
 // @title Words API Documentation
 // @version 1.0.0
-// @host localhost:8080
+// @host :8080
 
 func main() {
 	r := gin.Default()
