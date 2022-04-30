@@ -118,10 +118,7 @@ func insertString(inserted string, arr *[]string) bool {
 }
 func getPort() string {
 	var port = os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-	return "localhost:" + port
+	return "0.0.0.0:" + port
 }
 
 func filterWords(tipe int, word string, exc string, bad string) []string {
@@ -253,7 +250,7 @@ func addWord(c *gin.Context) {
 
 // @title Words API Documentation
 // @version 1.0.0
-// @host localhost:8080
+// @host findlr-bend.herokuapp.com
 
 func main() {
 	r := gin.Default()
