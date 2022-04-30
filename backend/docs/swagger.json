@@ -5,7 +5,7 @@
         "contact": {},
         "version": "1.0.0"
     },
-    "host": ":8080",
+    "host": "localhost:8080",
     "paths": {
         "/words": {
             "get": {
@@ -26,6 +26,13 @@
                         "type": "string",
                         "description": "Word",
                         "name": "word",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Bad Word Placement",
+                        "name": "bad",
                         "in": "query",
                         "required": true
                     },

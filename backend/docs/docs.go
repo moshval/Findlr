@@ -40,6 +40,13 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
+                        "description": "Bad Word Placement",
+                        "name": "bad",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
                         "description": "Excluded Letters",
                         "name": "exc",
                         "in": "query"
@@ -150,7 +157,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0.0",
-	Host:             ":8080",
+	Host:             "localhost:8080",
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Words API Documentation",

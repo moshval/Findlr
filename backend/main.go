@@ -20,6 +20,7 @@ type Words struct {
 type GetRequest struct {
 	Tipe int    `form:"type"`
 	Word string `form:"word"`
+	Bad  string `form:"bad"`
 	Exc  string `form:"exc"`
 }
 type PostRequest struct {
@@ -120,16 +121,17 @@ func getPort() string {
 	if port == "" {
 		port = "8080"
 	}
-	return ":" + port
+	return "localhost:" + port
 }
 
-func filterWords(tipe int, word string, exc string) []string {
+func filterWords(tipe int, word string, exc string, bad string) []string {
 	arr := parseFromFile(tipe)
 	fmt.Println(exc)
 	var filtered []string
 	for _, v := range arr {
+		// assume word len == bad len
 		for i := range word {
-			if v[i] != word[i] && string(word[i]) != "_" {
+			if (v[i] != word[i] && string(word[i]) != "_") || (bad[i] == v[i]) || (!strings.Contains(v, string(bad[i])) && string(bad[i]) != "_") {
 				break
 			}
 			if i == len(word)-1 {
@@ -156,6 +158,7 @@ func filterWords(tipe int, word string, exc string) []string {
 // @Description Get Words Based on Query
 // @Param type query int true "Language (0 : EN, 1 : ID)"
 // @Param word query string true "Word"
+// @Param bad query string true "Bad Word Placement"
 // @Param exc query string false "Excluded Letters"
 // @Tags Words
 // @Success 200 {array} Words
@@ -166,12 +169,15 @@ func getWords(c *gin.Context) {
 		var arr []string
 		if getreq.Tipe == 0 {
 			wrd := string(getreq.Word)
+			bad := string(getreq.Bad)
 			exc := string(getreq.Exc)
-			arr = filterWords(0, wrd, exc)
+			arr = filterWords(0, wrd, exc, bad)
 		} else {
 			wrd := string(getreq.Word)
+			bad := string(getreq.Bad)
+
 			exc := string(getreq.Exc)
-			arr = filterWords(1, wrd, exc)
+			arr = filterWords(1, wrd, exc, bad)
 		}
 		c.JSON(200, gin.H{
 			"words": arr,
@@ -247,7 +253,7 @@ func addWord(c *gin.Context) {
 
 // @title Words API Documentation
 // @version 1.0.0
-// @host :8080
+// @host localhost:8080
 
 func main() {
 	r := gin.Default()
